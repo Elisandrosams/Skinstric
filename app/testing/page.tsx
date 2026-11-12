@@ -93,7 +93,7 @@ export default function Testing() {
           {step === "name" && (
             <form className="relative z-10" onSubmit={handleNameSubmit}>
               <input
-                className="text-5xl sm:text-6xl font-normal text-center bg-transparent border-b border-black focus:outline-none appearance-none w-93 sm:w-108 pt-1 tracking-[-0.07em] leading-16 text-[#1A1B1C] z-10"
+                className="text-3xl sm:text-6xl font-normal text-center bg-transparent border-b border-black focus:outline-none appearance-none w-75 sm:w-108 pt-1 tracking-[-0.07em] leading-16 text-[#1A1B1C] z-10"
                 type="text"
                 placeholder="Introduce Yourself"
                 autoFocus
@@ -109,7 +109,7 @@ export default function Testing() {
           {step === "location" && !loading && (
             <form className="relative z-10" onSubmit={handleLocationSubmit}>
               <input
-                className="text-5xl sm:text-6xl font-normal text-center bg-transparent border-b border-black focus:outline-none appearance-none w-100 sm:w-115 pt-1 tracking-[-0.07em] leading-16 text-[#1A1B1C] z-10"
+                className="text-3xl sm:text-6xl font-normal text-center bg-transparent border-b border-black focus:outline-none appearance-none w-75 sm:w-115 pt-1 tracking-[-0.07em] leading-16 text-[#1A1B1C] z-10"
                 type="text"
                 placeholder="Your city name"
                 autoFocus
@@ -150,8 +150,7 @@ export default function Testing() {
             </div>
           </Link>
           {step === "done" && (
-          <Link href="/results" className="inline-block" aria-label="proceed">
-            <div className="">
+          <Link href="/result" className="inline-block" aria-label="proceed">
               <div>
                 <div className="w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                   <span className="-rotate-45 text-xs font-semibold sm:hidden">PROCEED</span>
@@ -162,7 +161,6 @@ export default function Testing() {
                   <FaPlay className="absolute right-3.25 bottom-3.75 scale-[0.7] hidden sm:block group-hover:scale-[0.82] ease duration-300"/>
                 </div>
               </div>
-            </div>
           </Link>
           )}
         </div>
