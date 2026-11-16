@@ -9,7 +9,6 @@ import large from "@/public/Rectangle-large.png";
 import { useState } from "react";
 
 export default function select() {
-
   const [hoverId, setHoverId] = useState<number | null>(null);
 
   return (
@@ -28,56 +27,81 @@ export default function select() {
         <div className="h-[78.3vh] flex flex-col items-center justify-center">
           <div className="relative">
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className={`absolute transition-all duration-400 ${hoverId === 1 ? 'w-150.5 h-150.5 opacity-100' : 'w-100 h-100 opacity-0'}`}>
-                  <img src={small.src} alt="Small" className="absolute h-full w-full inset-0 object-fit"/>
-                </div>
+              <div
+                className={`absolute transition-all duration-400 ${hoverId === 1 ? "w-150.5 h-150.5 opacity-100" : "w-100 h-100 opacity-0"}`}
+              >
+                <img
+                  src={small.src}
+                  alt="Small"
+                  className="absolute h-full w-full inset-0 object-fit"
+                />
+              </div>
             </div>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className={`absolute transition-all duration-400 ${hoverId === 2 ? 'w-170.5 h-170.5 opacity-100' : 'w-100 h-100 opacity-0'}`}>
-                  <img src={medium.src} alt="Medium" className="absolute h-full w-full inset-0 object-fit"/>
-                </div>
+              <div
+                className={`absolute transition-all duration-400 ${hoverId === 2 ? "w-170.5 h-170.5 opacity-100" : "w-100 h-100 opacity-0"}`}
+              >
+                <img
+                  src={medium.src}
+                  alt="Medium"
+                  className="absolute h-full w-full inset-0 object-fit"
+                />
+              </div>
             </div>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className={`absolute transition-all duration-400 ${hoverId === 3 ? 'w-190.5 h-190.5 opacity-100' : 'w-100 h-100 opacity-0'}`}>
-                  <img src={large.src} alt="Large" className="absolute h-full w-full inset-0 object-fit"/>
-                </div>
+              <div
+                className={`absolute transition-all duration-400 ${hoverId === 3 ? "w-190.5 h-190.5 opacity-100" : "w-100 h-100 opacity-0"}`}
+              >
+                <img
+                  src={large.src}
+                  alt="Large"
+                  className="absolute h-full w-full inset-0 object-fit"
+                />
+              </div>
             </div>
             <div className="relative z-10 grid grid-cols-3 grid-rows-3 gap-0 scale-65 sm:scale-100">
-                <div className="flex items-center justify-center col-start-2">
-                    <Link href="/summary">
-                        <button className="w-[153.88px] h-[153.88px] bg-gray-200 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-pointer font-semibold leading-6 tracking-tight uppercase hover:scale-[1.05] transition-transform duration-300"
-                            onMouseEnter={() => setHoverId(1)}
-                            onMouseLeave={() => setHoverId(null)}
-                        >
-                            <span className="transform -rotate-45">Demographics</span>
-                        </button>
-                    </Link>
-                </div>
-                <div className="flex items-center justify-center row-start-2 col-start-1">
-                    <button className="w-[153.88px] h-[153.88px] bg-gray-100 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-not-allowed font-semibold leading-6 tracking-tight uppercase"
-                        onMouseEnter={() => setHoverId(2)}
-                        onMouseLeave={() => setHoverId(null)}
-                    >
-                        <span className="transform -rotate-45">Cosmetic Concerns</span>
-                    </button>
-                </div>
-                <div className="flex items-center justify-center row-start-2 col-start-3">
-                    <button className="w-[153.88px] h-[153.88px] bg-gray-100 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-not-allowed font-semibold leading-6 tracking-tight uppercase"
-                        onMouseEnter={() => setHoverId(2)}
-                        onMouseLeave={() => setHoverId(null)}
-                    >
-                        <span className="transform -rotate-45">Skin Type Details</span>
-                    </button>
-                </div>
-                <div className="flex items-center justify-center row-start-3 col-start-2">
-                    <button className="w-[153.88px] h-[153.88px] bg-gray-100 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-not-allowed font-semibold leading-6 tracking-tight uppercase"
-                        onMouseEnter={() => setHoverId(3)}
-                        onMouseLeave={() => setHoverId(null)}
-                    >
-                        <span className="transform -rotate-45">Weather</span>
-                    </button>
-                </div>
-                
+              <div className="flex items-center justify-center col-start-2">
+                <Link href="/summary">
+                  <button
+                    className="w-[153.88px] h-[153.88px] bg-gray-200 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-pointer font-semibold leading-6 tracking-tight uppercase hover:scale-[1.05] transition-transform duration-300"
+                    onMouseEnter={() => setHoverId(1)}
+                    onMouseLeave={() => setHoverId(null)}
+                  >
+                    <span className="transform -rotate-45">Demographics</span>
+                  </button>
+                </Link>
+              </div>
+              <div className="flex items-center justify-center row-start-2 col-start-1">
+                <button
+                  className="w-[153.88px] h-[153.88px] bg-gray-100 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-not-allowed font-semibold leading-6 tracking-tight uppercase"
+                  onMouseEnter={() => setHoverId(2)}
+                  onMouseLeave={() => setHoverId(null)}
+                >
+                  <span className="transform -rotate-45">
+                    Cosmetic Concerns
+                  </span>
+                </button>
+              </div>
+              <div className="flex items-center justify-center row-start-2 col-start-3">
+                <button
+                  className="w-[153.88px] h-[153.88px] bg-gray-100 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-not-allowed font-semibold leading-6 tracking-tight uppercase"
+                  onMouseEnter={() => setHoverId(2)}
+                  onMouseLeave={() => setHoverId(null)}
+                >
+                  <span className="transform -rotate-45">
+                    Skin Type Details
+                  </span>
+                </button>
+              </div>
+              <div className="flex items-center justify-center row-start-3 col-start-2">
+                <button
+                  className="w-[153.88px] h-[153.88px] bg-gray-100 hover:bg-gray-300 transform rotate-45 flex items-center justify-center -m-5 cursor-not-allowed font-semibold leading-6 tracking-tight uppercase"
+                  onMouseEnter={() => setHoverId(3)}
+                  onMouseLeave={() => setHoverId(null)}
+                >
+                  <span className="transform -rotate-45">Weather</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

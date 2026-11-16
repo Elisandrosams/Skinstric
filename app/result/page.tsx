@@ -32,13 +32,15 @@ export default function Result() {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user" },
       });
-  
+
       stream.getTracks().forEach((track) => track.stop());
       setShowCameraPrompt(false);
       router.push("/camera");
     } catch (err) {
       console.error("Camera access denied", err);
-      setCameraError("Camera access was denied. Enable it in your browser settings.");
+      setCameraError(
+        "Camera access was denied. Enable it in your browser settings.",
+      );
     }
   };
 
@@ -68,11 +70,25 @@ export default function Result() {
           <p className="font-semibold text-xs md:text-sm">TO START ANALYSIS</p>
         </div>
         <div className="flex-[0.4] md:flex-1 flex flex-col md:flex-row items-center xl:justify-center relative mb-0 md:mb-30 -space-y-5 md:space-y-0">
-          <div className={`relative md:absolute md:left-[55%] lg:left-[50%] xl:left-[40%] md:translate-y-0 translate-y-[-1%] md:-translate-x-full flex flex-col items-center justify-center ${showCameraPrompt ? "z-30" : ""}`}>
+          <div
+            className={`relative md:absolute md:left-[55%] lg:left-[50%] xl:left-[40%] md:translate-y-0 translate-y-[-1%] md:-translate-x-full flex flex-col items-center justify-center ${showCameraPrompt ? "z-30" : ""}`}
+          >
             <div className="w-67.5 h-67.5 md:w-120.5 md:h-120.5"></div>
-            <img src={large.src} alt="Large Rectangle" className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-spin-slow rotate-200" />
-            <img src={medium.src} alt="Medium Rectangle" className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-spin-slower rotate-190" />
-            <img src={small.src} alt="Small Rectangle" className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-spin-slowest" />
+            <img
+              src={large.src}
+              alt="Large Rectangle"
+              className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-[spin_60s_linear_infinite] rotate-200"
+            />
+            <img
+              src={medium.src}
+              alt="Medium Rectangle"
+              className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-[spin_75s_linear_infinite] rotate-190"
+            />
+            <img
+              src={small.src}
+              alt="Small Rectangle"
+              className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-[spin_90s_linear_infinite] rotate-180"
+            />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <img
                 src={camera.src}
@@ -89,7 +105,9 @@ export default function Result() {
                     ALLOW A.I. TO ACCESS YOUR CAMERA
                   </h2>
                   {cameraError && (
-                    <p className="text-xs text-red-400 px-4 -mt-8 mb-4">{cameraError}</p>
+                    <p className="text-xs text-red-400 px-4 -mt-8 mb-4">
+                      {cameraError}
+                    </p>
                   )}
                   <div className="flex justify-end gap-6 border-t border-[#FCFCFC] pt-2 px-4">
                     <button
@@ -113,15 +131,33 @@ export default function Result() {
                 <p className="text-xs md:text-sm font-normal mt-1 leading-6">
                   ALLOW A.I. <br></br>TO SCAN YOUR FACE
                 </p>
-                <img src={pointer.src} alt="Pointer" className="absolute hidden w-15 h-14 md:block md:right-38 md:top-5" />
+                <img
+                  src={pointer.src}
+                  alt="Pointer"
+                  className="absolute hidden w-15 h-14 md:block md:right-38 md:top-5"
+                />
               </div>
             </div>
           </div>
-          <div className={`relative md:absolute md:left-[45%] lg:left-[50%] xl:left-[55%] flex flex-col items-center mt-12 md:mt-0 justify-center md:translate-y-0 translate-y-[-10%] transition-opacity duration-300 ${showCameraPrompt ? "opacity-50 pointer-events-none":"opacity-100"}`}>
+          <div
+            className={`relative md:absolute md:left-[45%] lg:left-[50%] xl:left-[55%] flex flex-col items-center mt-12 md:mt-0 justify-center md:translate-y-0 translate-y-[-10%] transition-opacity duration-300 ${showCameraPrompt ? "opacity-50 pointer-events-none" : "opacity-100"}`}
+          >
             <div className="w-67.5 h-67.5 md:w-120.5 md:h-120.5"></div>
-            <img src={large.src} alt="Large Rectangle" className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-spin-slow rotate-205" />
-            <img src={medium.src} alt="Medium Rectangle" className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-spin-slower rotate-195" />
-            <img src={small.src} alt="Small Rectangle" className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-spin-slowest" />
+            <img
+              src={large.src}
+              alt="Large Rectangle"
+              className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-[spin_60s_linear_infinite] rotate-205"
+            />
+            <img
+              src={medium.src}
+              alt="Medium Rectangle"
+              className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-[spin_75s_linear_infinite] rotate-195"
+            />
+            <img
+              src={small.src}
+              alt="Small Rectangle"
+              className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-[spin_90s_linear_infinite] rotate-180"
+            />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <img
                 src={picture.src}
@@ -133,7 +169,11 @@ export default function Result() {
                 <p className="text-[12px] md:text-[14px] font-normal mt-2 leading-6 text-right">
                   ALLOW A.I. <br></br>ACCESS GALLERY
                 </p>
-                <img src={pointer.src} alt="Pointer" className="absolute hidden w-[60.33px] h-[59.37px] md:block md:left-32 md:bottom-9.75 rotate-180" />
+                <img
+                  src={pointer.src}
+                  alt="Pointer"
+                  className="absolute hidden w-[60.33px] h-[59.37px] md:block md:left-32 md:bottom-9.75 rotate-180"
+                />
               </div>
             </div>
           </div>
@@ -141,7 +181,11 @@ export default function Result() {
             <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
             <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden">
               {base64Image && (
-                <img src={base64Image} alt="Preview" className="w-full h-full object-cover" />
+                <img
+                  src={base64Image}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                />
               )}
             </div>
           </div>

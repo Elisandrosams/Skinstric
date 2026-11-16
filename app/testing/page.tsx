@@ -39,7 +39,9 @@ export default function Testing() {
     e.preventDefault();
     const value = name.trim();
     if (!value || !isValidText(value)) {
-      setError("Please enter a valid name without numbers or special characters.");
+      setError(
+        "Please enter a valid name without numbers or special characters.",
+      );
       return;
     }
     setError("");
@@ -51,7 +53,9 @@ export default function Testing() {
     e.preventDefault();
     const value = location.trim();
     if (!value || !isValidText(value)) {
-      setError("Please enter a valid city without numbers or special characters.");
+      setError(
+        "Please enter a valid city without numbers or special characters.",
+      );
       return;
     }
     setError("");
@@ -90,7 +94,9 @@ export default function Testing() {
         </div>
         <div className="relative flex flex-col items-center justify-center mb-40 w-full h-full">
           {step !== "done" && !loading && (
-            <p className="text-sm text-gray-400 tracking-wider uppercase mb-1">CLICK TO TYPE</p>
+            <p className="text-sm text-gray-400 tracking-wider uppercase mb-1">
+              CLICK TO TYPE
+            </p>
           )}
 
           {step === "name" && (
@@ -105,7 +111,9 @@ export default function Testing() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <button type="submit" className="sr-only">Submit</button>
+              <button type="submit" className="sr-only">
+                Submit
+              </button>
             </form>
           )}
 
@@ -122,54 +130,79 @@ export default function Testing() {
                 onChange={(e) => setLocation(e.target.value)}
                 disabled={loading}
               />
-              <button type="submit" className="sr-only">Submit</button>
+              <button type="submit" className="sr-only">
+                Submit
+              </button>
             </form>
           )}
 
           {loading && (
-            <p className="mt-4 text-lg text-gray-500 tracking-wide">Processing submission</p>
+            <p className="mt-4 text-lg text-gray-500 tracking-wide">
+              Processing submission
+            </p>
           )}
 
           {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
 
           {step === "done" && (
             <div className="flex flex-col items-center gap-4 z-10">
-              <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">Thank You!</p>
+              <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">
+                Thank You!
+              </p>
               <p className="text-lg text-gray-600">Proceed for the next step</p>
             </div>
           )}
-          <img src={small.src} alt="Small Rectangle" className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-80 h-80 md:w-150.5 md:h-150.5 animate-spin-slowest" />
-          <img src={medium.src} alt="Medium Rectangle" className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-100 h-100 md:w-170.5 md:h-170.5 animate-spin-slower rotate-185" />
-          <img src={large.src} alt="Large Rectangle" className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-120 h-120 md:w-190.5 md:h-190.5 animate-spin-slow rotate-190" />
+          <img
+            src={small.src}
+            alt="Small Rectangle"
+            className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-80 h-80 md:w-150.5 md:h-150.5 animate-[spin_90s_linear_infinite] rotate-180"
+          />
+          <img
+            src={medium.src}
+            alt="Medium Rectangle"
+            className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-100 h-100 md:w-170.5 md:h-170.5 animate-[spin_75s_linear_infinite] rotate-185"
+          />
+          <img
+            src={large.src}
+            alt="Large Rectangle"
+            className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-120 h-120 md:w-190.5 md:h-190.5 animate-[spin_60s_linear_infinite] rotate-190"
+          />
         </div>
         <div className="absolute bottom-38.5 md:bottom-8 w-full flex justify-between md:px-9 px-13">
           <Link href="/" className="inset-0" aria-label="back">
             <div>
               <div className="relative w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
-                <span className="-rotate-45 text-xs font-semibold sm:hidden">BACK</span>
+                <span className="-rotate-45 text-xs font-semibold sm:hidden">
+                  BACK
+                </span>
               </div>
               <div className="group hidden sm:flex flex-row relative justify-center items-center">
                 <div className="w-12 h-12 hidden sm:flex justify-center border border-[#1A1B1C] rotate-45 scale-[0.85] group-hover:scale-[0.92] ease duration-300"></div>
-                <FaPlay className="absolute rotate-180 left-3.25 bottom-3.75 scale-[0.7] hidden sm:block group-hover:scale-[0.82] ease duration-300"/>
-                <span className="text-sm font-semibold hidden sm:block ml-6">BACK</span>
+                <FaPlay className="absolute rotate-180 left-3.25 bottom-3.75 scale-[0.7] hidden sm:block group-hover:scale-[0.82] ease duration-300" />
+                <span className="text-sm font-semibold hidden sm:block ml-6">
+                  BACK
+                </span>
               </div>
             </div>
           </Link>
           {step === "done" && (
-          <Link href="/result" className="inline-block" aria-label="proceed">
+            <Link href="/result" className="inline-block" aria-label="proceed">
               <div>
                 <div className="w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
-                  <span className="-rotate-45 text-xs font-semibold sm:hidden">PROCEED</span>
+                  <span className="-rotate-45 text-xs font-semibold sm:hidden">
+                    PROCEED
+                  </span>
                 </div>
                 <div className="group hidden sm:flex flex-row relative justify-center items-center">
-                  <span className="text-sm font-semibold hidden sm:block mr-5">PROCEED</span>
+                  <span className="text-sm font-semibold hidden sm:block mr-5">
+                    PROCEED
+                  </span>
                   <div className="w-12 h-12 hidden sm:flex justify-center border border-[#1A1B1C] rotate-45 scale-[0.85] group-hover:scale-[0.92] ease duration-300"></div>
-                  <FaPlay className="absolute right-3.25 bottom-3.75 scale-[0.7] hidden sm:block group-hover:scale-[0.82] ease duration-300"/>
+                  <FaPlay className="absolute right-3.25 bottom-3.75 scale-[0.7] hidden sm:block group-hover:scale-[0.82] ease duration-300" />
                 </div>
               </div>
-          </Link>
+            </Link>
           )}
-          
         </div>
       </div>
     </div>
