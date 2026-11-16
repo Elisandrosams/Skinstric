@@ -6,12 +6,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
 import { compressImage } from "@/lib/compressImage";
-import camera from "@/public/camera lens.jpg";
-import picture from "@/public/picture icon.png";
+import camera from "@/public/camera-icon.png";
+import picture from "@/public/gallery-icon.png";
+import pointer from "@/public/pointer.png";
+import large from "@/public/Rectangle-large.png";
+import medium from "@/public/Rectangle-medium.png";
+import small from "@/public/Rectangle-small.png";
 
 export default function Result() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
   const [base64Image, setBase64Image] = useState<string | null>(null);
   const [showCameraPrompt, setShowCameraPrompt] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
@@ -40,7 +43,6 @@ export default function Result() {
   };
 
   const handleAllowGallery = () => {
-    setShowGalleryPrompt(false);
     fileInputRef.current?.click();
   };
 
@@ -68,6 +70,9 @@ export default function Result() {
         <div className="flex-[0.4] md:flex-1 flex flex-col md:flex-row items-center xl:justify-center relative mb-0 md:mb-30 -space-y-5 md:space-y-0">
           <div className={`relative md:absolute md:left-[55%] lg:left-[50%] xl:left-[40%] md:translate-y-0 translate-y-[-1%] md:-translate-x-full flex flex-col items-center justify-center ${showCameraPrompt ? "z-30" : ""}`}>
             <div className="w-67.5 h-67.5 md:w-120.5 md:h-120.5"></div>
+            <img src={large.src} alt="Large Rectangle" className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-spin-slow rotate-200" />
+            <img src={medium.src} alt="Medium Rectangle" className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-spin-slower rotate-190" />
+            <img src={small.src} alt="Small Rectangle" className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-spin-slowest" />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <img
                 src={camera.src}
@@ -76,7 +81,7 @@ export default function Result() {
                   setCameraError(null);
                   setShowCameraPrompt(true);
                 }}
-                className="absolute w-34 h-34 md:w-54 md:h-54 hover:scale-108 duration-700 ease-in-out cursor-pointer"
+                className="absolute w-25 h-25 md:w-34 md:h-34 hover:scale-108 duration-700 ease-in-out cursor-pointer"
               />
               {showCameraPrompt && (
                 <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-full w-75 max-w-[calc(100vw-2rem)] md:w-88 bg-[#1A1B1C] text-[#FCFCFC] pt-4 pb-2">
@@ -108,22 +113,27 @@ export default function Result() {
                 <p className="text-xs md:text-sm font-normal mt-1 leading-6">
                   ALLOW A.I. <br></br>TO SCAN YOUR FACE
                 </p>
+                <img src={pointer.src} alt="Pointer" className="absolute hidden w-15 h-14 md:block md:right-38 md:top-5" />
               </div>
             </div>
           </div>
-          <div className={`relative md:absolute md:left-[45%] lg:left-[50%] xl:left-[55%] flex flex-col items-center mt-12 md:mt-0 justify-center md:translate-y-0 translate-y-[-10%] transition-opacity dration-30 opacity-100 ${showGalleryPrompt ? "z-30" : ""}`}>
+          <div className={`relative md:absolute md:left-[45%] lg:left-[50%] xl:left-[55%] flex flex-col items-center mt-12 md:mt-0 justify-center md:translate-y-0 translate-y-[-10%] transition-opacity duration-300 ${showCameraPrompt ? "opacity-50 pointer-events-none":"opacity-100"}`}>
             <div className="w-67.5 h-67.5 md:w-120.5 md:h-120.5"></div>
+            <img src={large.src} alt="Large Rectangle" className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-spin-slow rotate-205" />
+            <img src={medium.src} alt="Medium Rectangle" className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-spin-slower rotate-195" />
+            <img src={small.src} alt="Small Rectangle" className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-spin-slowest" />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <img
                 src={picture.src}
                 alt="Gallery"
                 onClick={handleAllowGallery}
-                className="absolute w-20 h-20 md:w-30 md:h-30 hover:scale-108 duration-700 ease-in-out cursor-pointer"
+                className="absolute w-25 h-25 md:w-34 md:h-34 hover:scale-108 duration-700 ease-in-out cursor-pointer"
               />
               <div className="absolute top-[75%] md:top-[70%] md:left-4.25 -translate-y-2.5">
                 <p className="text-[12px] md:text-[14px] font-normal mt-2 leading-6 text-right">
                   ALLOW A.I. <br></br>ACCESS GALLERY
                 </p>
+                <img src={pointer.src} alt="Pointer" className="absolute hidden w-[60.33px] h-[59.37px] md:block md:left-32 md:bottom-9.75 rotate-180" />
               </div>
             </div>
           </div>
@@ -162,7 +172,7 @@ export default function Result() {
               </div>
             </Link>
             <Link href="/select">
-              <div className={base64Image ? "" : "hidden"}>
+              <div className="hidden">
                 <div className="w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                   <span className="-rotate-45 text-xs font-semibold sm:hidden">
                     PROCEED

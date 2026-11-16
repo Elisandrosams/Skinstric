@@ -4,6 +4,9 @@ import { useLayoutEffect, useRef, useState, type SubmitEvent } from "react";
 import NavBar from "@/components/NavBar";
 import Link from "next/link";
 import { FaPlay } from "react-icons/fa";
+import large from "@/public/Rectangle-large.png";
+import medium from "@/public/Rectangle-medium.png";
+import small from "@/public/Rectangle-small.png";
 
 const API_URL =
   "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseOne";
@@ -124,7 +127,7 @@ export default function Testing() {
           )}
 
           {loading && (
-            <p className="mt-4 text-sm text-gray-500 tracking-wide">Processing submission...</p>
+            <p className="mt-4 text-lg text-gray-500 tracking-wide">Processing submission</p>
           )}
 
           {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
@@ -132,9 +135,12 @@ export default function Testing() {
           {step === "done" && (
             <div className="flex flex-col items-center gap-4 z-10">
               <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">Thank You!</p>
-              <p className="text-lg text-gray-600">Proceed to the next step</p>
+              <p className="text-lg text-gray-600">Proceed for the next step</p>
             </div>
           )}
+          <img src={small.src} alt="Small Rectangle" className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-80 h-80 md:w-150.5 md:h-150.5 animate-spin-slowest" />
+          <img src={medium.src} alt="Medium Rectangle" className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-100 h-100 md:w-170.5 md:h-170.5 animate-spin-slower rotate-185" />
+          <img src={large.src} alt="Large Rectangle" className="absolute top-1/2 left-1/2 transform translate-x-[-50%] -translate-y-1/2 w-120 h-120 md:w-190.5 md:h-190.5 animate-spin-slow rotate-190" />
         </div>
         <div className="absolute bottom-38.5 md:bottom-8 w-full flex justify-between md:px-9 px-13">
           <Link href="/" className="inset-0" aria-label="back">
@@ -163,6 +169,7 @@ export default function Testing() {
               </div>
           </Link>
           )}
+          
         </div>
       </div>
     </div>

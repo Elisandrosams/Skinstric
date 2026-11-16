@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaCamera, FaPlay } from "react-icons/fa";
+import takePhoto from "@/public/take-picture.png"
+import { FaPlay } from "react-icons/fa";
 import { drawCompressed } from "@/lib/compressImage";
 
 export default function Camera() {
@@ -98,6 +99,7 @@ export default function Camera() {
       )}
 
       {!error && !capturedImage && (
+        <div className="absolute inset-0 z-10">
         <div className="absolute right-8 top-1/2 -translate-y-1/2 z-10 flex items-center gap-4">
           <span className="hidden md:block text-sm font-semibold text-white">
             TAKE PICTURE
@@ -106,32 +108,46 @@ export default function Camera() {
             type="button"
             onClick={handleCapture}
             aria-label="Take picture"
-            className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-white text-[#1A1B1C] hover:scale-108 duration-300 ease-in-out cursor-pointer"
+            className=" hover:scale-108 duration-300 ease-in-out cursor-pointer"
           >
-            <FaCamera className="w-6 h-6 md:w-7 md:h-7 text-gray-400" />
+            <img src={takePhoto.src} alt="Take Picture" className="w-16 h-16 cursor-pointer" />
           </button>
+        </div>
+        <div className="absolute bottom-30 sm-bottom-40 left-0 right-0 text-center z-20">
+          <p className="text-sm mb-2 font-normal leading-6 text-[#FCFCFC]">
+            TO GET BETTER RESULTS MAKE SURE TO HAVE
+          </p>
+          <div className="flex justify-center space-x-8 text-xs leading-6 text-[#FCFCFC]">
+            <p>◊ NEUTRAL EXPRESSION</p>
+            <p>◊ FRONTAL POSE</p>
+            <p>◊ ADEQUATE LIGHTING</p>
+          </div>
+        </div>
         </div>
       )}
 
       {capturedImage && (
+        <div className="absolute inset-0 z-10 flex flex-col items-center">
+          <div className="absolute text-sm leading-6 uppercase text-[#FCFCFC] top-40">GREAT SHOT!</div>
         <div className="absolute bottom-28 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-4">
-          <p className="text-sm font-semibold text-white tracking-wide">PREVIEW</p>
+          <p className="text-lg font-semibold text-white tracking-wide">Preview</p>
           <div className="flex gap-4">
             <button
               type="button"
               onClick={() => setCapturedImage(null)}
-              className="px-4 py-2 text-xs md:text-sm font-semibold text-[#1A1B1C] bg-white hover:bg-gray-300 cursor-pointer whitespace-nowrap"
+              className="px-4 py-2 text-xs md:text-sm text-[#1A1B1C] bg-white hover:bg-gray-300 cursor-pointer whitespace-nowrap"
             >
-              RETAKE
+              Retake
             </button>
             <button
               type="button"
               onClick={handleUsePhoto}
-              className="px-4 py-2 text-xs md:text-sm font-semibold text-white bg-[#1A1B1C] hover:bg-gray-800 cursor-pointer whitespace-nowrap"
+              className="px-4 py-2 text-xs md:text-sm text-white bg-[#1A1B1C] hover:bg-gray-800 cursor-pointer whitespace-nowrap"
             >
-              USE THIS PHOTO
+              Use This Photo
             </button>
           </div>
+        </div>
         </div>
       )}
 
