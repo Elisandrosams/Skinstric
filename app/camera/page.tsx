@@ -3,7 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import NavBar from "@/components/NavBar";
 import takePhoto from "@/public/take-picture.png";
+import cameraIcon from "@/public/camera-icon.png";
+import large from "@/public/Rectangle-large.png";
+import medium from "@/public/Rectangle-medium.png";
+import small from "@/public/Rectangle-small.png";
 import { FaPlay } from "react-icons/fa";
 import { drawCompressed } from "@/lib/compressImage";
 
@@ -11,16 +16,40 @@ export default function Camera() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [streamReady, setStreamReady] = useState(false);
+  const [minLoadDone, setMinLoadDone] = useState(false);
+  const navTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    return () => {
+      if (navTimerRef.current) clearTimeout(navTimerRef.current);
+      navTimerRef.current = null;
+      setCapturedImage(null);
+      setAnalyzing(false);
+      setError(null);
+      setStreamReady(false);
+      setMinLoadDone(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMinLoadDone(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const isLoading = !error && (!streamReady || !minLoadDone);
+
   const handleUsePhoto = () => {
-    if (!capturedImage) return;
+    if (!capturedImage || analyzing) return;
     try {
       sessionStorage.setItem("capturedImage", capturedImage);
     } catch (err) {
       console.error("Failed to save photo", err);
     }
-    router.push("/select");
+    setAnalyzing(true);
+    navTimerRef.current = setTimeout(() => router.push("/select"), 2000);
   };
 
   const handleCapture = () => {
@@ -28,7 +57,6 @@ export default function Camera() {
     if (!video || !video.videoWidth) return;
 
     try {
-      // Mirror the capture so it matches the selfie-style preview.
       setCapturedImage(
         drawCompressed(video, video.videoWidth, video.videoHeight, {
           mirror: true,
@@ -88,8 +116,55 @@ export default function Camera() {
           autoPlay
           playsInline
           muted
+          onPlaying={() => setStreamReady(true)}
           className="h-full w-full object-cover -scale-x-100"
         />
+      )}
+
+      {isLoading && (
+        <div className="absolute inset-0 z-40 flex flex-col bg-white">
+          <NavBar />
+          <div className="flex flex-1 flex-col items-center justify-center gap-8 px-6">
+            <div className="relative flex items-center justify-center">
+              <div className="w-67.5 h-67.5 md:w-120.5 md:h-120.5"></div>
+              <img
+                src={large.src}
+                alt=""
+                className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-[spin_60s_linear_infinite] rotate-200"
+              />
+              <img
+                src={medium.src}
+                alt=""
+                className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-[spin_75s_linear_infinite] rotate-190"
+              />
+              <img
+                src={small.src}
+                alt=""
+                className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-[spin_90s_linear_infinite] rotate-180"
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 animate-pulse">
+                <img
+                  src={cameraIcon.src}
+                  alt="Setting up camera"
+                  className="w-20 h-20 md:w-34 md:h-34"
+                />
+                <p className="text-xs md:text-sm font-semibold tracking-wide text-[#1A1B1C]">
+                  SETTING UP CAMERA...
+                </p>
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="text-sm mb-2 font-normal leading-6 text-[#1A1B1C]">
+                TO GET BETTER RESULTS MAKE SURE TO HAVE
+              </p>
+              <div className="flex flex-wrap justify-center gap-x-8 text-xs leading-6 text-[#1A1B1C]">
+                <p>◊ NEUTRAL EXPRESSION</p>
+                <p>◊ FRONTAL POSE</p>
+                <p>◊ ADEQUATE LIGHTING</p>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {capturedImage && (
@@ -132,7 +207,22 @@ export default function Camera() {
         </div>
       )}
 
-      {capturedImage && (
+      {analyzing && (
+        <div className="absolute inset-0 z-30 flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-4 w-72 h-40 bg-gray-300/50 backdrop-blur-sm rounded-2xl">
+            <p className="text-lg font-semibold tracking-wider text-gray-600 animate-pulse">
+              ANALYZING IMAGE...
+            </p>
+            <div className="flex gap-2 items-center justify-center">
+              <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.3s]"></span>
+              <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.15s]"></span>
+              <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {capturedImage && !analyzing && (
         <div className="absolute inset-0 z-10 flex flex-col items-center">
           <div className="absolute text-sm leading-6 uppercase text-[#FCFCFC] top-40">
             GREAT SHOT!

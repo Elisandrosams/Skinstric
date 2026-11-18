@@ -24,11 +24,14 @@ export default function Summary() {
   const [image, setImage] = useState<string | null>(null);
   const [demographics, setDemographics] = useState<Demographics | null>(null);
   const [activeCategory, setActiveCategory] = useState<Category>("race");
-  const [selected, setSelected] = useState<Partial<Record<Category, string>>>({});
+  const [selected, setSelected] = useState<Partial<Record<Category, string>>>(
+    {},
+  );
 
   const sorted = sortByConfidence(demographics?.[activeCategory]);
   const displayLabel = selected[activeCategory] ?? sorted[0]?.[0] ?? "";
-  const displayPercent = sorted.find(([label]) => label === displayLabel)?.[1] ?? 0;
+  const displayPercent =
+    sorted.find(([label]) => label === displayLabel)?.[1] ?? 0;
   const activeLabel = CATEGORIES.find((c) => c.key === activeCategory)!.label;
 
   useEffect(() => {
@@ -43,10 +46,9 @@ export default function Summary() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ image: img.split(",")[1] ?? img }),
-        }
+        },
       );
       const data = await res.json();
-      console.log("Phase two response:", data);
       setDemographics(data.data);
     } catch (err) {
       console.error("Phase two request failed:", err);
@@ -77,7 +79,8 @@ export default function Summary() {
                 {CATEGORIES.map(({ key, label }) => {
                   const isActive = key === activeCategory;
                   const top =
-                    selected[key] ?? sortByConfidence(demographics?.[key])[0]?.[0];
+                    selected[key] ??
+                    sortByConfidence(demographics?.[key])[0]?.[0];
                   return (
                     <div
                       key={key}
@@ -133,7 +136,6 @@ export default function Summary() {
                         a 49.15,49.15 0 1 1 0,-98.3
                         "
                         strokeWidth="1.7"
-                        
                         fillOpacity="0"
                         style={{
                           stroke: "rgb(26, 27, 28)",
@@ -147,7 +149,8 @@ export default function Summary() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <p className="text-3xl md:text-[40px] font-normal">
                         {displayPercent}
-                        <span className="absolute text-xl md:text-3xl">%</span></p>
+                        <span className="absolute text-xl md:text-3xl">%</span>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -158,14 +161,21 @@ export default function Summary() {
               <div className="bg-gray-100 pt-4 pb-4 md:border-t">
                 <div className="space-y-0">
                   <div className="flex justify-between px-4">
-                    <h4 className="text-base leading-6 tracking-tight font-medium mb-2">{activeLabel}</h4>
-                    <h4 className="text-base leading-6 tracking-tight font-medium mb-2">A.I. CONFIDENCE</h4>
+                    <h4 className="text-base leading-6 tracking-tight font-medium mb-2">
+                      {activeLabel}
+                    </h4>
+                    <h4 className="text-base leading-6 tracking-tight font-medium mb-2">
+                      A.I. CONFIDENCE
+                    </h4>
                   </div>
                   {sorted.map(([label, percent]) => (
                     <div
                       key={label}
                       onClick={() =>
-                        setSelected((prev) => ({ ...prev, [activeCategory]: label }))
+                        setSelected((prev) => ({
+                          ...prev,
+                          [activeCategory]: label,
+                        }))
                       }
                       className={`flex justify-between items-center h-12 px-4 cursor-pointer ${
                         label === displayLabel
@@ -188,7 +198,7 @@ export default function Summary() {
               <div className="flex justify-between max-w-full mx-auto px-4 md:px-0">
                 <Link href="/select" className="relative" aria-label="back">
                   <div>
-                    <div className="relative w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
+                    <div className="relative bg-white w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                       <span className="-rotate-45 text-xs font-semibold sm:hidden">
                         BACK
                       </span>
@@ -204,7 +214,7 @@ export default function Summary() {
                 </Link>
                 <Link href="/">
                   <div>
-                    <div className="w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
+                    <div className="w-12 h-12 bg-white flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                       <span className="-rotate-45 text-xs font-semibold sm:hidden">
                         HOME
                       </span>

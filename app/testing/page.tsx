@@ -86,7 +86,7 @@ export default function Testing() {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <NavBar />
       <div className="min-h-[90vh] flex flex-col items-center justify-center text-center">
         <div className="absolute top-16 left-9 text left">
