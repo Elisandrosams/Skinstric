@@ -20,16 +20,6 @@ export default function Home() {
 
   return (
     <div>
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      `}</style>
       <NavBar />
       <div className="max-sm:scale-[0.75] max-sm:origin-center max-sm:p-6 overflow-hidden">
         <div className="flex flex-col items-center justify-center h-[71dvh] md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
@@ -39,7 +29,7 @@ export default function Home() {
           <div className="absolute inset-0 flex items-center justify-center lg:hidden">
             <div className="w-105 h-105 border border-dotted border-[#A0A4AB] rotate-45 absolute top-1/2 left-1/2 translate-x-[-52%] -translate-y-1/2"></div>
           </div>
-          <div key={animationKey} id="main-heading" className="relative z-10 text-center animate-[fadeIn_2s_ease-in-out]">
+          <div key={animationKey} id="main-heading" className="relative z-10 text-center animate-fade-in">
             <h1
               className="text-[60px] text-[#1A1B1C] lg:text-[100px] font-inter font-normal tracking-tighter leading-none"
              

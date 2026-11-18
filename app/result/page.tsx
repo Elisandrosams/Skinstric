@@ -18,6 +18,7 @@ export default function Result() {
   const [base64Image, setBase64Image] = useState<string | null>(null);
   const [showCameraPrompt, setShowCameraPrompt] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
 
   const handleAllowCamera = async () => {
@@ -53,14 +54,54 @@ export default function Result() {
     e.target.value = "";
     if (!file) return;
 
+    setIsProcessing(true);
+
     try {
       const result = await compressImage(file);
       setBase64Image(result);
       sessionStorage.setItem("capturedImage", result);
+      console.log("Image analyzed successfully!");
+
+      // Let the loading state paint before the blocking alert opens.
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      alert("Image analyzed successfully!");
+      router.push("/select");
     } catch (err) {
       console.error("Failed to process photo", err);
+      setIsProcessing(false);
     }
   };
+
+  const loadingState = (
+          <div className="relative md:absolute md:left-1/2 md:-translate-x-1/2 flex items-center justify-center">
+            <div className="w-67.5 h-67.5 md:w-120.5 md:h-120.5"></div>
+            <img
+              src={large.src}
+              alt="Large Rectangle"
+              className="absolute w-67.5 h-67.5 md:w-120.5 md:h-120.5 animate-[spin_60s_linear_infinite] rotate-200"
+            />
+            <img
+              src={medium.src}
+              alt="Medium Rectangle"
+              className="absolute w-57.5 h-57.5 md:w-[444.34px] md:h-[444.34px] animate-[spin_75s_linear_infinite] rotate-190"
+            />
+            <img
+              src={small.src}
+              alt="Small Rectangle"
+              className="absolute w-47.5 h-47.5 md:w-[405.18px] md:h-[405.18px] animate-[spin_90s_linear_infinite] rotate-180"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
+              <p className="text-xs md:text-sm font-semibold tracking-wide">
+                PREPARING YOUR ANALYSIS...
+              </p>
+              <div className="flex gap-2">
+                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></span>
+              </div>
+            </div>
+          </div>
+  );
 
   return (
     <div className="md:min-h-screen md:flex md:flex-col">
@@ -70,6 +111,10 @@ export default function Result() {
           <p className="font-semibold text-xs md:text-sm">TO START ANALYSIS</p>
         </div>
         <div className="flex-[0.4] md:flex-1 flex flex-col md:flex-row items-center xl:justify-center relative mb-0 md:mb-30 -space-y-5 md:space-y-0">
+          {isProcessing ? (
+            loadingState
+          ) : (
+          <>
           <div
             className={`relative md:absolute md:left-[55%] lg:left-[50%] xl:left-[40%] md:translate-y-0 translate-y-[-1%] md:-translate-x-full flex flex-col items-center justify-center ${showCameraPrompt ? "z-30" : ""}`}
           >
@@ -177,6 +222,8 @@ export default function Result() {
               </div>
             </div>
           </div>
+          </>
+          )}
           <div className="absolute -top-6 right-7 md:-top-12.5 md:right-8 transition-opacity duration-300 opacity-100">
             <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
             <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden">

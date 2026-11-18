@@ -137,9 +137,16 @@ export default function Testing() {
           )}
 
           {loading && (
-            <p className="mt-4 text-lg text-gray-500 tracking-wide">
-              Processing submission
-            </p>
+            <div className="flex flex-col items-center justify-center z-10">
+              <p className="mt-4 text-lg text-gray-500 tracking-wide">
+                Processing submission
+              </p>
+              <div className="flex gap-2 items-center justify-center mt-2">
+                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></span>
+              </div>
+            </div>
           )}
 
           {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
@@ -186,7 +193,11 @@ export default function Testing() {
             </div>
           </Link>
           {step === "done" && (
-            <Link href="/result" className="inline-block" aria-label="proceed">
+            <Link
+              href="/result"
+              className="inline-block animate-slide-in"
+              aria-label="proceed"
+            >
               <div>
                 <div className="w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                   <span className="-rotate-45 text-xs font-semibold sm:hidden">
